@@ -146,7 +146,7 @@ class Pong {
             const chars = player.score.toString().split('');
             const offset = align *
                 (index + 1) -
-                (CHAR_W * chars.length / 2) *
+                (CHAR_W * chars.length / 2) +
                 this.CHAR_PIXEL / 2;
             chars.forEach((char, pos) => {
                 this._context.drawImage(this.CHARS[char | 0],
@@ -196,9 +196,9 @@ const pong = new Pong(canvas);
 
 // Allows player to move with the mouse
 canvas.addEventListener('mousemove', event => {
-    pong.players[0].pos.y = event.offsetY;
+    const scale = event.offsetY / event.target.getBoundingClientRect().height;
+    pong.players[0].pos.y = canvas.height * scale;
 });
 
 canvas.addEventListener('click', event => {
-    pong.start();
-});
+            pong.start();});
